@@ -1,5 +1,7 @@
 <template>
+  <v-container fill-height>
     <HelloWorld/>
+  </v-container>
 </template>
 
 <script>

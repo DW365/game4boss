@@ -3,16 +3,18 @@
     dark
     app
   >
-    <div class="d-flex align-center">
-      <v-img
-        alt="Vuetify Logo"
-        class="shrink mr-2"
-        contain
-        src="logo.png"
-        transition="scale-transition"
-        width="250"
-      />
-    </div>
+    <router-link to="/">
+      <div class="d-flex align-center">
+        <v-img
+          alt="Vuetify Logo"
+          class="shrink mr-2"
+          contain
+          src="logo.png"
+          transition="scale-transition"
+          width="250"
+        />
+      </div>
+    </router-link>
     <v-select
       :items=items
       solo
@@ -24,7 +26,7 @@
       centered
     >
       <v-tab to="/">Главная</v-tab>
-      <v-tab>История игр</v-tab>
+      <v-tab to="/history">История игр</v-tab>
       <v-tab to="/game">Текущая игра</v-tab>
       <v-tab to="/subscription">Подписка</v-tab>
     </v-tabs>
@@ -44,7 +46,15 @@
         </v-btn>
       </template>
       <v-list>
-        <v-list-item to="/">
+        <v-list-item to="/profile">
+          <v-list-item-icon>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>
+            Профиль
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item to="/login">
           <v-list-item-icon>
             <v-icon>mdi-exit-to-app</v-icon>
           </v-list-item-icon>

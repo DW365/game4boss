@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <v-container fluid>
     <v-row>
       <v-col md="3">
-        <div class="text-center"><h2>Алгоритмы руководителя</h2></div>
+        <div class="text-center col-title"><h2>Алгоритмы руководителя</h2></div>
         <v-expansion-panels
           :value="0"
         >
@@ -69,147 +69,133 @@
         </v-expansion-panels>
       </v-col>
       <v-col md="7">
-        <div class="text-center"><h2>Управленческий кейс</h2></div>
+        <div class="text-center col-title">
+          <h2>
+            <v-btn
+              class="mx-1"
+              fab
+              outlined
+              small
+            >
+              <v-icon>mdi-eye</v-icon>
+            </v-btn>
+            <v-btn
+              class="mx-1"
+              fab
+              outlined
+              small
+            >
+              <v-icon>mdi-chevron-left</v-icon>
+            </v-btn>
+            Управленческий кейс 12 / 12
+            <v-btn
+              class="mx-1"
+              fab
+              outlined
+              small
+            >
+              <v-icon>mdi-chevron-right</v-icon>
+            </v-btn>
+            <v-btn
+              class="mx-1"
+              fab
+              outlined
+              small
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </h2>
+        </div>
         <v-row>
           <v-col md="6">
-            <v-card
-              hover
-              class="mx-auto"
-              color="deep-orange lighten-2"
-              dark
-            >
-              <v-card-title class="pt-2 pb-1">
-                <v-icon
-                  dark
-                  left
-                >
-                  mdi-card-text-outline
-                </v-icon>
-                <span class="font-weight-light card-title">Задача</span>
-              </v-card-title>
-
-              <v-card-text class="card-text">
-                Автоматизировать / Синхронизировать / Интегрировать
-              </v-card-text>
-            </v-card>
+            <Card title="Задача" text="Автоматизировать / Синхронизировать / Интегрировать"
+                  color="deep-orange lighten-2"/>
           </v-col>
           <v-col md="6">
-            <v-card
-              hover
-              class="mx-auto"
-              color="pink lighten-2"
-              dark
-              height="100%"
-            >
-              <v-card-title class="pt-2 pb-1">
-                <v-icon
-                  dark
-                  left
-                >
-                  mdi-card-text-outline
-                </v-icon>
-                <span class="font-weight-light card-title">Объект</span>
-              </v-card-title>
-
-              <v-card-text class="card-text">
-                Квалификация / Обученность сотрудников
-              </v-card-text>
-            </v-card>
+            <Card title="Объект" text="Квалификация / Обученность сотрудников" color="pink lighten-2"/>
           </v-col>
         </v-row>
         <v-row>
           <v-col md="6">
-            <v-card
-              hover
-              class="mx-auto"
-              color="indigo lighten-2"
-              dark
-              height="100%"
-            >
-              <v-card-title class="pt-2 pb-1">
-                <v-icon
-                  dark
-                  left
-                >
-                  mdi-card-text-outline
-                </v-icon>
-                <span class="font-weight-light card-title">Условие</span>
-              </v-card-title>
-
-              <v-card-text class="card-text">
-                Недостаточность ресурсов для выполнения задачи
-              </v-card-text>
-            </v-card>
+            <Card title="Условие" text="Недостаточность ресурсов для выполнения задачи" color="indigo lighten-2"/>
           </v-col>
           <v-col md="6">
-            <v-card
-              hover
-              class="mx-auto"
-              color="teal lighten-2"
-              dark
-              min-height="75px"
-            >
-              <v-card-title class="pt-2 pb-1">
-                <v-icon
-                  dark
-                  left
-                >
-                  mdi-card-text-outline
-                </v-icon>
-                <span class="font-weight-light card-title">Уровень передачи полномочий</span>
-              </v-card-title>
-
-              <v-card-text class="card-text">
-                Советуюсь и принимаю решение
-              </v-card-text>
-            </v-card>
+            <Card title="Уровень передачи полномочий" text="Советуюсь и принимаю решение" color="teal lighten-2"/>
           </v-col>
         </v-row>
         <v-row>
           <v-col md="12">
-            <v-card
-              hover
-              class="mx-auto"
-              color="orange lighten-2"
-              dark
-              height="100%"
-            >
-              <v-card-title class="pt-2 pb-1">
-                <v-icon
-                  dark
-                  left
-                >
-                  mdi-card-text-outline
-                </v-icon>
-                <span class="font-weight-light card-title">Сотрудник</span>
-              </v-card-title>
-
-              <v-card-text class="card-text">
-                Опытный сотрудник, почти 7 лет работает в компании. Кандидат на замещение руководящей должности. Сильный, грамотный специалист, уверенный в своем профессионализме. Саботирует все, что расходится с его мнением
-              </v-card-text>
-            </v-card>
+            <Card title="Сотрудник" text="Опытный сотрудник, почти 7 лет работает в компании. Кандидат на замещение руководящей должности.
+                Сильный, грамотный специалист, уверенный в своем профессионализме. Саботирует все, что расходится с его
+                мнением" color="orange lighten-2"/>
           </v-col>
         </v-row>
       </v-col>
       <v-col md="2">
-        <div class="text-center py-4"><h1>‎</h1></div>
-        <h2 class="text-center py-8" style="font-weight: 400">Ведущий<br><b>Иванов Иван</b></h2>
-        <h2 class="text-center py-8" style="font-weight: 400">До конца игры<br><b>0:31</b></h2>
-        <h2 class="text-center pt-8" style="font-weight: 400">Действия</h2>
+        <div class="text-center col-title">
+          <h2>
+            <v-text-field
+              v-model="message"
+              append-outer-icon="mdi-floppy"
+              clearable
+              type="text"
+              class="mt-0 pt-0"
+            ></v-text-field>
+          </h2>
+        </div>
+        <div class="pt-13 pb-13">
+          <h2 class="text-center pb-2" style="font-weight: 400">Ведущий</h2>
+          <h2 class="text-center"><b>Иванов Иван</b></h2></div>
+        <div class="pt-12 pb-16">
+          <h2 class=" text-center justify-center" style="font-weight: 400">До конца игры
+            <v-btn
+              fab
+              outlined
+              x-small
+            >
+              <v-icon>mdi-pause</v-icon>
+            </v-btn>
+          </h2>
+          <v-row no-gutters>
+            <v-col></v-col>
+            <v-col>
+              <v-text-field
+                type="time"
+                value="12:30:00"
+                style="width: 3em; font-size: 1.5em; font-weight: 600"
+              >
+              </v-text-field>
+            </v-col>
+            <v-col></v-col>
+          </v-row>
+        </div>
+        <div class="pt-3">
+          <h2 class="text-center pb-2" style="font-weight: 400">Ссылка
+            <v-btn
+              fab
+              outlined
+              x-small
+            >
+              <v-icon>mdi-reload</v-icon>
+            </v-btn>
+            <br></h2>
+          <h3 class="text-center"><b>game4boss.ru/X6J5W2</b></h3>
+        </div>
       </v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 <script>
+import Card from '@/components/Card'
+
 export default {
-  data () {
-    return {
-      panel: 0
-    }
-  }
+  components: { Card }
 }
 </script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cuprum:wght@700&display=swap');
+
 .v-expansion-panel-header {
   font-weight: 500;
   font-size: 15pt !important;
@@ -218,16 +204,24 @@ export default {
 span {
   font-size: 14pt;
 }
-.card-text{
-  font-size: 18pt;
-  font-weight: 400;
-  color: rgba(255,255,255,0.9)!important;
-  line-height: 1.75rem;
+
+.card-text {
+  font-family: 'Cuprum', sans-serif;
+  font-size: 20pt;
+  color: rgba(255, 255, 255, 0.9) !important;
+  line-height: 1.5rem;
 }
-.v-card{
-  height: 100%!important;
+
+.v-card {
+  height: 100% !important;
+  min-height: 160px;
 }
-.card-title{
-  font-size: 12pt!important;
+
+.card-title {
+  font-size: 12pt !important;
+}
+
+.col-title {
+  height: 42px;
 }
 </style>

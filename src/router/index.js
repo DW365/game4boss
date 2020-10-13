@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Subscription from '../views/Subscription.vue'
 import Game from '../views/Game.vue'
+import History from '../views/History.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,21 @@ const routes = [
     path: '/subscription',
     name: 'Subscription',
     component: Subscription
+  },
+  {
+    path: '/history',
+    name: 'History',
+    component: History
+  },
+  {
+    path: '/history/:game_id/:case_id',
+    name: 'History Game',
+    component: Game
+  },
+  {
+    path: '/history/:game_id',
+    name: 'History Game',
+    component: Game
   }
 ]
 
