@@ -3,27 +3,27 @@
     dark
     app
   >
-    <router-link to="/">
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="logo.png"
-          transition="scale-transition"
-          width="250"
-        />
-      </div>
-    </router-link>
+    <div class="d-flex align-center">
+      <v-img
+        alt="Vuetify Logo"
+        class="shrink mr-2"
+        contain
+        src="logo.png"
+        transition="scale-transition"
+        width="250"
+      />
+    </div>
     <v-select
       :items=items
       solo
       hide-details
       value="RU"
       class="pa-0 ma-0 lang-selector"
+      style="max-width: 100px"
     ></v-select>
     <v-tabs
       centered
+      v-show=show
     >
       <v-tab to="/">Главная</v-tab>
       <v-tab to="/history">История игр</v-tab>
@@ -41,6 +41,7 @@
           icon
           v-bind="attrs"
           v-on="on"
+          v-show=show
         >
           <v-icon>mdi-dots-vertical</v-icon>
         </v-btn>
@@ -70,6 +71,7 @@
 <script>
 export default {
   name: 'Navigation',
+  props: ['show'],
   data: () => ({
     items: ['RU', 'EN', 'BY', 'KZ']
   })

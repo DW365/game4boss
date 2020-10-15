@@ -1,17 +1,27 @@
 <template>
   <v-container fill-height>
-    <HelloWorld/>
+    <v-row align="self-start">
+      <div v-html="contentString" style="width: 100%"></div>
+    </v-row>
   </v-container>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import api from '@/client'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  data () {
+    return {
+      contentString: ''
+    }
+  },
+  created () {
+    api.init()
+      .then(client => client.getMainPage({ lang: 'RU' }))
+      .then(res => {
+        this.contentString = res.data
+      })
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Navigation/>
+    <Navigation :show="showNavigation"/>
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -27,6 +27,11 @@ import Navigation from '@/components/Navigation'
 export default {
   components: {
     Navigation
+  },
+  computed: {
+    showNavigation () {
+      return this.$route.path !== '/login' && this.$route.path !== '/register' && this.$route.path !== '/email_confirm'
+    }
   }
 }
 </script>

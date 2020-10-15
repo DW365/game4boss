@@ -5,6 +5,10 @@ import About from '../views/About.vue'
 import Subscription from '../views/Subscription.vue'
 import Game from '../views/Game.vue'
 import History from '../views/History.vue'
+import Login from '@/views/Login'
+import Profile from '@/views/Profile'
+import Register from '@/views/Register'
+import EmailConfirm from '@/views/EmailConfirm'
 
 Vue.use(VueRouter)
 
@@ -43,6 +47,26 @@ const routes = [
     path: '/history/:game_id',
     name: 'History Game',
     component: Game
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
+  },
+  {
+    path: '/Profile',
+    name: 'History Game',
+    component: Profile
+  },
+  {
+    path: '/email_confirm',
+    name: 'Email Confirm',
+    component: EmailConfirm
   }
 ]
 
