@@ -6,7 +6,7 @@
     dark
   >
     <v-container fill-height>
-      <v-row align="self-start" justify="start">
+      <v-row justify="start">
         <v-card-title class="py-1">
           <v-icon
             dark
@@ -17,8 +17,8 @@
           <span class="font-weight-light card-title">{{ title }}</span>
         </v-card-title>
       </v-row>
-      <v-row align="self-stretch">
-        <v-card-text class="card-text py-1">
+      <v-row class="align-self-stretch">
+        <v-card-text class="card-text py-1" v-if="showText">
           {{ text }}
         </v-card-text>
       </v-row>
@@ -29,7 +29,7 @@
 <script>
 export default {
   name: 'Card',
-  props: ['title', 'text', 'color']
+  props: ['title', 'text', 'color', 'showText']
 }
 </script>
 

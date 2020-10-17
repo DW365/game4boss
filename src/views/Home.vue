@@ -1,6 +1,6 @@
 <template>
   <v-container fill-height>
-    <v-row align="self-start">
+    <v-row>
       <div v-html="contentString" style="width: 100%"></div>
     </v-row>
   </v-container>

@@ -1,6 +1,6 @@
 <template>
   <v-container fill-height>
-    <v-row justify="center" align="self-start" class="ma-0 pt-5" no-gutters>
+    <v-row justify="center" class="ma-0 pt-5 align-self-start" no-gutters>
       <v-col md="12">
         <v-banner
           color="success"
@@ -15,7 +15,7 @@
         </v-banner>
       </v-col>
     </v-row>
-    <v-row justify="center" align="self-start">
+    <v-row justify="center" class="align-self-start">
       <v-col md="3">
         <SubscriptionCard title="На 1 месяц" price="100" offer="0" color="blue lighten-2"/>
       </v-col>

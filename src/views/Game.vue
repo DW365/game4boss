@@ -1,10 +1,11 @@
 <template>
-  <v-container fluid>
-    <v-row>
+  <v-container :fill-height="game===null" :fluid="game !== null">
+    <v-row v-if="game !== null && requested">
       <v-col md="3">
         <div class="text-center col-title"><h2>Алгоритмы руководителя</h2></div>
         <v-expansion-panels
-          :value="0"
+          v-model="panel_value"
+          :disabled="!show1"
         >
           <v-expansion-panel
             class="ma-3"
@@ -76,31 +77,40 @@
               fab
               outlined
               small
+              @click="showHideButton"
             >
-              <v-icon>mdi-eye</v-icon>
+              <v-icon>{{ show1 ? 'mdi-eye-off-outline' : 'mdi-eye-outline' }}</v-icon>
             </v-btn>
             <v-btn
               class="mx-1"
               fab
               outlined
               small
+              :disabled="currentCase<=1"
+              @click="prevCase"
             >
               <v-icon>mdi-chevron-left</v-icon>
             </v-btn>
-            Управленческий кейс 12 / 12
+            Управленческий кейс {{ currentCase }} / {{ game.managementCases.length }}
             <v-btn
               class="mx-1"
               fab
               outlined
               small
+              @click="nextCase"
+              :disabled="this.$route.name === 'History Game' && currentCase === game.managementCases.length"
             >
-              <v-icon>mdi-chevron-right</v-icon>
+              <v-icon>
+                {{ currentCase !== game.managementCases.length ? 'mdi-chevron-right' : 'mdi-chevron-double-right' }}
+              </v-icon>
             </v-btn>
             <v-btn
               class="mx-1"
               fab
               outlined
               small
+              @click="closeGame"
+              :disabled="this.$route.name === 'History Game'"
             >
               <v-icon>mdi-close</v-icon>
             </v-btn>
@@ -108,26 +118,27 @@
         </div>
         <v-row>
           <v-col md="6">
-            <Card title="Задача" text="Автоматизировать / Синхронизировать / Интегрировать"
-                  color="deep-orange lighten-2"/>
+            <Card title="Задача" :text="taskCardText"
+                  color="deep-orange lighten-2" v-bind:showText="show1"/>
           </v-col>
           <v-col md="6">
-            <Card title="Объект" text="Квалификация / Обученность сотрудников" color="pink lighten-2"/>
+            <Card title="Объект" :text="objectCardText" color="pink lighten-2"
+                  v-bind:showText="show1"/>
           </v-col>
         </v-row>
         <v-row>
           <v-col md="6">
-            <Card title="Условие" text="Недостаточность ресурсов для выполнения задачи" color="indigo lighten-2"/>
+            <Card title="Условие" :text="conditionCardText" color="indigo lighten-2"
+                  v-bind:showText="show1"/>
           </v-col>
           <v-col md="6">
-            <Card title="Уровень передачи полномочий" text="Советуюсь и принимаю решение" color="teal lighten-2"/>
+            <Card title="Уровень передачи полномочий" :text="delegationLevelCardText" color="teal lighten-2"
+                  v-bind:showText="show1"/>
           </v-col>
         </v-row>
         <v-row>
           <v-col md="12">
-            <Card title="Сотрудник" text="Опытный сотрудник, почти 7 лет работает в компании. Кандидат на замещение руководящей должности.
-                Сильный, грамотный специалист, уверенный в своем профессионализме. Саботирует все, что расходится с его
-                мнением" color="orange lighten-2"/>
+            <Card title="Сотрудник" :text="employeeCardText" color="orange lighten-2" v-bind:showText="show1"/>
           </v-col>
         </v-row>
       </v-col>
@@ -136,23 +147,26 @@
           <h2>
             <v-text-field
               append-outer-icon="mdi-floppy"
-              clearable
               type="text"
               class="mt-0 pt-0"
+              v-model="caseNameModel"
+              @click:append-outer="saveCaseName"
+              ref="caseNameInput"
             ></v-text-field>
           </h2>
         </div>
         <div class="pt-13 pb-13">
           <h2 class="text-center pb-2" style="font-weight: 400">Ведущий</h2>
-          <h2 class="text-center"><b>Иванов Иван</b></h2></div>
-        <div class="pt-12 pb-16">
+          <h2 class="text-center"><b>{{ this.game.ownerName }}</b></h2></div>
+        <div class="pt-12 pb-16" v-if="show1" :style="{visibility: this.$route.name !== 'History Game' ? 'visible' : 'hidden'}">
           <h2 class=" text-center justify-center" style="font-weight: 400">До конца игры
             <v-btn
               fab
               outlined
               x-small
+              @click="timerActive=!timerActive"
             >
-              <v-icon>mdi-pause</v-icon>
+              <v-icon>{{ timerActive ? 'mdi-pause' : 'mdi-play' }}</v-icon>
             </v-btn>
           </h2>
           <v-row no-gutters>
@@ -160,7 +174,7 @@
             <v-col>
               <v-text-field
                 type="time"
-                value="12:30:00"
+                value="15:00:00"
                 style="width: 3em; font-size: 1.5em; font-weight: 600"
               >
               </v-text-field>
@@ -168,27 +182,156 @@
             <v-col></v-col>
           </v-row>
         </div>
-        <div class="pt-3">
+        <div class="pt-3" v-if="show1">
           <h2 class="text-center pb-2" style="font-weight: 400">Ссылка
             <v-btn
               fab
               outlined
               x-small
+              @click="updateLink"
             >
               <v-icon>mdi-reload</v-icon>
             </v-btn>
             <br></h2>
-          <h3 class="text-center"><b>game4boss.ru/X6J5W2</b></h3>
+          <h3 class="text-center"><b>{{ currentHost }}/{{ this.game.shortLink }}</b></h3>
         </div>
+      </v-col>
+    </v-row>
+    <v-row v-if="game===null && requested" class="justify-center align-center">
+      <v-col cols="8">
+        <v-btn x-large block color="success" @click="startNewGame">Начать новую игру</v-btn>
       </v-col>
     </v-row>
   </v-container>
 </template>
 <script>
 import Card from '@/components/Card'
+import api from '@/client'
 
 export default {
-  components: { Card }
+  components: { Card },
+  data: () => ({
+    show1: true,
+    panel_value: -1,
+    real_panel_value: null,
+    game: null,
+    caseName: '',
+    requested: false,
+    currentCase: 1,
+    timerActive: false
+  }),
+  computed: {
+    caseNameModel: {
+      get () {
+        return this.game.managementCases[this.currentCase - 1].name
+      },
+      set (value) {
+        this.caseName = value
+      }
+    },
+    currentHost () {
+      return window.location.hostname + (location.port ? ':' + location.port : '')
+    },
+    objectCardText () {
+      return this.game.managementCases[this.currentCase - 1].objectCard.RU
+    },
+    employeeCardText () {
+      return this.game.managementCases[this.currentCase - 1].employeeCard.RU
+    },
+    taskCardText () {
+      return this.game.managementCases[this.currentCase - 1].taskCard.RU
+    },
+    conditionCardText () {
+      return this.game.managementCases[this.currentCase - 1].conditionCard.RU
+    },
+    delegationLevelCardText () {
+      return this.game.managementCases[this.currentCase - 1].delegationLevelCard.RU
+    }
+  },
+  methods: {
+    nextCase () {
+      if (this.currentCase < this.game.managementCases.length) {
+        this.currentCase++
+      } else {
+        api.init()
+          .then(client => client.createNewCase({ gameId: this.game.id }))
+          .then(res => {
+            this.game.managementCases.push(res.data)
+            this.currentCase++
+          })
+      }
+      this.$refs.caseNameInput.value = ''
+    },
+    prevCase () {
+      if (this.currentCase > 1) {
+        this.currentCase--
+      }
+      this.$refs.caseNameInput.value = ''
+    },
+    showHideButton () {
+      this.show1 = !this.show1
+      if (this.show1 === false) {
+        this.real_panel_value = this.panel_value
+        this.panel_value = -1
+      } else {
+        this.panel_value = this.real_panel_value
+      }
+    },
+    closeGame () {
+      api.init()
+        .then(client => client.closeGame())
+        .then(res => {
+          this.game = null
+        })
+    },
+    startNewGame () {
+      api.init()
+        .then(client => client.createNewGame())
+        .then(res => {
+          this.game = res.data
+          this.currentCase = this.game.managementCases.length
+        })
+    },
+    saveCaseName () {
+      api.init()
+        .then(client => client.setCaseName({
+          gameId: this.game.id,
+          caseId: this.game.managementCases[this.currentCase - 1].id,
+          name: this.caseName
+        }))
+        .then(res => {
+          this.game.managementCases[this.currentCase - 1] = res.data
+        })
+    },
+    updateLink () {
+      api.init()
+        .then(client => client.setNewShortLink({
+          gameId: this.game.id
+        }))
+        .then(res => {
+          this.game.shortLink = res.data
+        })
+    }
+  },
+  beforeCreate () {
+    if (this.$route.name !== 'History Game') {
+      api.init()
+        .then(client => client.getCurrentGameInfo())
+        .then(res => {
+          this.game = res.data
+          this.requested = true
+          this.currentCase = this.game.managementCases.length
+        })
+    } else {
+      api.init()
+        .then(client => client.getGame({ gameId: this.$route.query.id }))
+        .then(res => {
+          this.game = res.data
+          this.requested = true
+          this.currentCase = this.game.managementCases.length
+        })
+    }
+  }
 }
 </script>
 <style>

@@ -11,6 +11,7 @@ import Register from '@/views/Register'
 import EmailConfirm from '@/views/EmailConfirm'
 import store from '@/store/index'
 import api from '@/client'
+import Case from '@/views/Case'
 
 Vue.use(VueRouter)
 
@@ -41,12 +42,12 @@ const routes = [
     component: History
   },
   {
-    path: '/history/:game_id/:case_id',
-    name: 'History Game',
-    component: Game
+    path: '/history/case',
+    name: 'History Game Case',
+    component: Case
   },
   {
-    path: '/history/:game_id',
+    path: '/history/game',
     name: 'History Game',
     component: Game
   },
