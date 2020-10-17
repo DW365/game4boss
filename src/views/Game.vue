@@ -135,7 +135,6 @@
         <div class="text-center col-title">
           <h2>
             <v-text-field
-              v-model="message"
               append-outer-icon="mdi-floppy"
               clearable
               type="text"

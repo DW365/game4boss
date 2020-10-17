@@ -55,7 +55,7 @@
             Профиль
           </v-list-item-title>
         </v-list-item>
-        <v-list-item to="/login">
+        <v-list-item @click="logout">
           <v-list-item-icon>
             <v-icon>mdi-exit-to-app</v-icon>
           </v-list-item-icon>
@@ -69,12 +69,25 @@
 </template>
 
 <script>
+import router from '@/router'
+import api from '@/client'
+
 export default {
   name: 'Navigation',
   props: ['show'],
   data: () => ({
     items: ['RU', 'EN', 'BY', 'KZ']
-  })
+  }),
+  methods: {
+    logout () {
+      api.init()
+        .then(client => client.logout(null, null, { withCredentials: true }))
+        .then(res => {
+          this.$store.commit('setUser', {})
+          router.push('/login')
+        })
+    }
+  }
 }
 </script>
 

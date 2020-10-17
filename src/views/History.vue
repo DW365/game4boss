@@ -3,7 +3,7 @@
     <v-row align="self-center" class="pt-8">
       <v-expansion-panels focusable inset>
         <v-expansion-panel
-          v-for="(item,i) in 8"
+          v-for="(item,i) in 7"
           :key="i"
         >
           <v-expansion-panel-header>
@@ -45,7 +45,6 @@
     </v-row>
     <v-row class="text-center" justify="center" align="self-end">
       <v-pagination
-        v-model="page"
         class="my-3"
         :length="15"
         :total-visible="7"

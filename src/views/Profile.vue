@@ -4,35 +4,42 @@
       <v-col cols="12">
         <v-text-field
           label="Email"
-          value="user@mail.ru"
+          ref="email"
           outlined
           disabled
+          v-model="email"
         ></v-text-field>
       </v-col>
       <v-col cols="12">
         <v-text-field
           label="Name"
-          value="Вася Васечкин"
           outlined
+          ref="name"
+          v-model="name"
         ></v-text-field>
       </v-col>
       <v-col cols="12">
         <v-text-field
           label="Phone"
-          value="88005553535"
           outlined
+          ref="phone"
+          v-model="phone"
         ></v-text-field>
       </v-col>
       <v-col cols="12">
         <v-text-field
           label="Password"
-          value="88005553535"
-          type="password"
+          placeholder="********"
           outlined
+          ref="password"
+          v-model="password"
+          :type="show1 ? 'text' : 'password'"
+          :append-icon="show1 ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
+          @click:append="show1 = !show1"
         ></v-text-field>
       </v-col>
       <v-col cols="8" offset="2" class="justify-center text-center">
-        <v-btn color="success" block x-large>Сохранить</v-btn>
+        <v-btn color="success" block x-large @click="save">Сохранить</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -41,5 +48,33 @@
 <style>
 </style>
 <script>
-export default {}
+import api from '@/client'
+
+export default {
+  data: () => ({
+    email: null,
+    phone: null,
+    name: null,
+    password: null,
+    show1: false
+  }),
+  mounted () {
+    this.email = this.$store.state.user.email
+    this.phone = this.$store.state.user.phoneNumber
+    this.name = this.$store.state.user.fullName
+  },
+  methods: {
+    save () {
+      api.init()
+        .then(client => client.updateUserInfo({}, {
+          fullName: this.name,
+          phoneNumber: this.phone,
+          password: this.password
+        }))
+        .then(res => {
+          this.$store.commit('setUser', res.data)
+        })
+    }
+  }
+}
 </script>
