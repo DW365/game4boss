@@ -12,12 +12,17 @@ import EmailConfirm from '@/views/EmailConfirm'
 import store from '@/store/index'
 import api from '@/client'
 import Case from '@/views/Case'
+import GameForPlayer from '@/views/GameForPlayer'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
+    redirect: '/home'
+  },
+  {
+    path: '/home',
     name: 'Home',
     component: Home
   },
@@ -44,7 +49,8 @@ const routes = [
   {
     path: '/history/case',
     name: 'History Game Case',
-    component: Case
+    component: Case,
+    meta: { requiresAuth: false }
   },
   {
     path: '/history/game',
@@ -64,14 +70,20 @@ const routes = [
     meta: { requiresAuth: false }
   },
   {
-    path: '/Profile',
-    name: 'History Game',
+    path: '/profile',
+    name: 'Profile',
     component: Profile
   },
   {
     path: '/email_confirm',
     name: 'Email Confirm',
     component: EmailConfirm,
+    meta: { requiresAuth: false }
+  },
+  {
+    path: '/:shortId',
+    name: 'Game For Player',
+    component: GameForPlayer,
     meta: { requiresAuth: false }
   }
 ]

@@ -30,7 +30,12 @@ export default {
   },
   computed: {
     showNavigation () {
-      return this.$route.path !== '/login' && this.$route.path !== '/register' && this.$route.path !== '/email_confirm'
+      return this.$route.path !== '/login' &&
+        this.$route.path !== '/register' &&
+        this.$route.path !== '/email_confirm' &&
+        this.$route.name !== 'History Game Case' &&
+        this.$route.name !== 'Game For Player' &&
+        this.$route.path !== '/'
     }
   }
 }

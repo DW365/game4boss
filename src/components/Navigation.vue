@@ -4,13 +4,13 @@
     app
   >
     <div class="d-flex align-center">
-      <v-img
+      <img
         alt="Vuetify Logo"
         class="shrink mr-2"
         contain
-        src="logo.png"
-        transition="scale-transition"
-        width="250"
+        src="@/assets/logo.png"
+        width="250px"
+        min-height="50px"
       />
     </div>
     <v-select
@@ -76,7 +76,8 @@ export default {
   name: 'Navigation',
   props: ['show'],
   data: () => ({
-    items: ['RU', 'EN', 'BY', 'KZ']
+    items: ['RU', 'EN', 'BY', 'KZ'],
+    logo: 'logo.png'
   }),
   methods: {
     logout () {

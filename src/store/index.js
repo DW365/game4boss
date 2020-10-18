@@ -9,9 +9,17 @@ export default new Vuex.Store({
     user: {},
     game: {},
     translations: {},
-    currentLanguage: 'RU'
+    currentLanguage: 'RU',
+    timerValue: '15:00:00',
+    timerActive: false
   },
   mutations: {
+    setTimerValue (state, value) {
+      state.timerValue = value
+    },
+    setTimerActiveValue (state, value) {
+      state.timerActive = value
+    },
     setUser (state, user) {
       state.user = user
     },

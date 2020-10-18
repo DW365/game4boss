@@ -60,6 +60,8 @@
 import api from '@/client'
 import router from '@/router'
 
+const qs = require('querystring')
+
 export default {
   data () {
     return {
@@ -77,10 +79,10 @@ export default {
       this.$refs.form.validate()
       if (this.valid) {
         api.init()
-          .then(client => client.login({
+          .then(client => client.login(null, qs.stringify({
             email: this.email,
             password: this.password
-          }, null, { withCredentials: true }))
+          })))
           .then(res => {
             this.$store.commit('setUser', res.data)
             router.push('/')

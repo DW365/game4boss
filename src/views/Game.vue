@@ -158,7 +158,8 @@
         <div class="pt-13 pb-13">
           <h2 class="text-center pb-2" style="font-weight: 400">Ведущий</h2>
           <h2 class="text-center"><b>{{ this.game.ownerName }}</b></h2></div>
-        <div class="pt-12 pb-16" v-if="show1" :style="{visibility: this.$route.name !== 'History Game' ? 'visible' : 'hidden'}">
+        <div class="pt-12 pb-16" v-if="show1"
+             :style="{visibility: this.$route.name !== 'History Game' ? 'visible' : 'hidden'}">
           <h2 class=" text-center justify-center" style="font-weight: 400">До конца игры
             <v-btn
               fab
@@ -174,7 +175,7 @@
             <v-col>
               <v-text-field
                 type="time"
-                value="15:00:00"
+                v-model="timerValue"
                 style="width: 3em; font-size: 1.5em; font-weight: 600"
               >
               </v-text-field>
@@ -217,8 +218,7 @@ export default {
     game: null,
     caseName: '',
     requested: false,
-    currentCase: 1,
-    timerActive: false
+    currentCase: 1
   }),
   computed: {
     caseNameModel: {
@@ -227,6 +227,22 @@ export default {
       },
       set (value) {
         this.caseName = value
+      }
+    },
+    timerValue: {
+      get () {
+        return this.$store.state.timerValue
+      },
+      set (value) {
+        this.$store.commit('setTimerValue', value)
+      }
+    },
+    timerActive: {
+      get () {
+        return this.$store.state.timerActive
+      },
+      set (value) {
+        this.$store.commit('setTimerActiveValue', value)
       }
     },
     currentHost () {
@@ -285,6 +301,8 @@ export default {
         })
     },
     startNewGame () {
+      this.timerValue = '15:00:00'
+      this.timerActive = false
       api.init()
         .then(client => client.createNewGame())
         .then(res => {
@@ -331,6 +349,30 @@ export default {
           this.currentCase = this.game.managementCases.length
         })
     }
+  },
+  mounted () {
+    const beep = require('@/assets/beep.mp3')
+    const c = this
+    const zeroPad = (num, places) => String(num).padStart(places, '0')
+    setInterval(function () {
+      if (c.timerActive) {
+        console.log('tick')
+        const timerComponents = c.timerValue.split(':')
+        if (Number(timerComponents[1]) > 0) {
+          timerComponents[1] = zeroPad(Number(timerComponents[1]) - 1, 2)
+        } else {
+          if (Number(timerComponents[0]) > 0) {
+            timerComponents[1] = zeroPad(59, 2)
+            timerComponents[0] = zeroPad(Number(timerComponents[0]) - 1, 2)
+          } else {
+            c.$store.commit('setTimerActiveValue', false)
+            var audio = new Audio(beep)
+            audio.play()
+          }
+        }
+        c.$store.commit('setTimerValue', timerComponents.join(':'))
+      }
+    }, 1000)
   }
 }
 </script>

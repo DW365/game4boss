@@ -1,11 +1,12 @@
 import { OpenAPIClientAxios } from 'openapi-client-axios'
+import { BACKEND_URL } from '@/constants'
 
 const api = new OpenAPIClientAxios({
-  definition: 'http://localhost:8000/openapi.json',
+  definition: BACKEND_URL + '/openapi.json',
   axiosConfigDefaults: {
     withCredentials: true
   }
 })
-api.withServer({ url: 'http://localhost:8000/' })
+api.withServer({ url: BACKEND_URL })
 
 export default api
