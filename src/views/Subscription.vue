@@ -1,6 +1,6 @@
 <template>
   <v-container fill-height>
-    <v-row justify="center" class="ma-0 pt-5 align-self-start" no-gutters>
+    <v-row justify="center" class=" align-self-start" no-gutters>
       <v-col md="12">
         <v-banner
           color="success"
@@ -8,25 +8,26 @@
           outlined
           rounded
           dark
-          class="text-center"
+          class="text-center ma-0 mt-5"
+          v-if="$store.state.user.subscription"
         >
           <v-icon dark class="pa-2">mdi-check</v-icon>
-          Ваша подписка активна до <b>11.12.2020</b>
+          Ваша подписка активна до <b>{{ $store.state.user.subscription }}</b>
         </v-banner>
       </v-col>
     </v-row>
     <v-row justify="center" class="align-self-start">
       <v-col md="3">
-        <SubscriptionCard title="На 1 месяц" price="100" offer="0" color="blue lighten-2"/>
+        <SubscriptionCard title="На 1 месяц" :price=prices[0][0] :offer=prices[0][1] color="blue lighten-2"/>
       </v-col>
       <v-col md="3">
-        <SubscriptionCard title="На 1 месяц" price="100" offer="0" color="purple lighten-2"/>
+        <SubscriptionCard title="На 3 месяца" :price=prices[1][0] :offer=prices[1][1] color="purple lighten-2"/>
       </v-col>
       <v-col md="3">
-        <SubscriptionCard title="На 1 месяц" price="100" offer="0" color="orange lighten-2"/>
+        <SubscriptionCard title="На 6 месяев" :price=prices[2][0] :offer=prices[2][1] color="orange lighten-2"/>
       </v-col>
       <v-col md="3">
-        <SubscriptionCard title="На 1 месяц" price="100" offer="0" color="pink lighten-2"/>
+        <SubscriptionCard title="На 12 месяцев" :price=prices[3][0] :offer=prices[3][1] color="pink lighten-2"/>
       </v-col>
     </v-row>
   </v-container>
@@ -36,8 +37,21 @@
 </style>
 <script>
 import SubscriptionCard from '@/components/SubscriptionCard'
+import api from '@/client'
 
 export default {
-  components: { SubscriptionCard }
+  components: { SubscriptionCard },
+  data () {
+    return {
+      prices: [[0, 0], [0, 0], [0, 0], [0, 0]]
+    }
+  },
+  created () {
+    api.init()
+      .then(client => client.getPrices({ lang: 'RU' }))
+      .then(res => {
+        this.prices = res.data
+      })
+  }
 }
 </script>

@@ -6,7 +6,7 @@
     dark
   >
     <v-container fill-height>
-      <v-row justify="start">
+      <v-row class="align-self-start justify-center">
         <v-card-title class="py-1">
           <v-icon
             dark
@@ -18,7 +18,7 @@
         </v-card-title>
       </v-row>
       <v-row class="align-self-stretch">
-        <v-card-text class="card-text py-1" v-if="showText">
+        <v-card-text class="card-text py-1 text-center" v-if="showText">
           {{ text }}
         </v-card-text>
       </v-row>

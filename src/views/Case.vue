@@ -64,7 +64,10 @@ export default {
   },
   beforeCreate () {
     api.init()
-      .then(client => client.getCase({ caseId: this.$route.query.id }))
+      .then(client => client.getCase({
+        caseId: this.$route.query.id,
+        gameId: this.$route.query.gameId
+      }))
       .then(res => {
         this.gameCase = res.data
         this.requested = true

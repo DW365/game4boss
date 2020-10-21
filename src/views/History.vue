@@ -90,7 +90,7 @@ export default {
         })
     },
     getPath (item, mCase) {
-      return '/history/case?id=' + mCase.id
+      return '/history/case?id=' + mCase.id + '&gameId=' + item.id
     },
     getGamePath (item) {
       return '/history/game?id=' + item.id

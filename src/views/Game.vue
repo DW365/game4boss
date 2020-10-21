@@ -98,7 +98,7 @@
               outlined
               small
               @click="nextCase"
-              :disabled="this.$route.name === 'History Game' && currentCase === game.managementCases.length"
+              :disabled="(this.$route.name === 'History Game' && currentCase === game.managementCases.length) || !$store.state.user.subscription"
             >
               <v-icon>
                 {{ currentCase !== game.managementCases.length ? 'mdi-chevron-right' : 'mdi-chevron-double-right' }}
@@ -174,9 +174,10 @@
             <v-col></v-col>
             <v-col>
               <v-text-field
-                type="time"
+                v-mask="'##:##'"
                 v-model="timerValue"
                 style="width: 3em; font-size: 1.5em; font-weight: 600"
+                :readonly="timerActive"
               >
               </v-text-field>
             </v-col>
@@ -200,7 +201,9 @@
     </v-row>
     <v-row v-if="game===null && requested" class="justify-center align-center">
       <v-col cols="8">
-        <v-btn x-large block color="success" @click="startNewGame">Начать новую игру</v-btn>
+        <v-btn x-large block color="success" @click="startNewGame" :disabled="!$store.state.user.subscription">Начать
+          новую игру
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -349,30 +352,6 @@ export default {
           this.currentCase = this.game.managementCases.length
         })
     }
-  },
-  mounted () {
-    const beep = require('@/assets/beep.mp3')
-    const c = this
-    const zeroPad = (num, places) => String(num).padStart(places, '0')
-    setInterval(function () {
-      if (c.timerActive) {
-        console.log('tick')
-        const timerComponents = c.timerValue.split(':')
-        if (Number(timerComponents[1]) > 0) {
-          timerComponents[1] = zeroPad(Number(timerComponents[1]) - 1, 2)
-        } else {
-          if (Number(timerComponents[0]) > 0) {
-            timerComponents[1] = zeroPad(59, 2)
-            timerComponents[0] = zeroPad(Number(timerComponents[0]) - 1, 2)
-          } else {
-            c.$store.commit('setTimerActiveValue', false)
-            var audio = new Audio(beep)
-            audio.play()
-          }
-        }
-        c.$store.commit('setTimerValue', timerComponents.join(':'))
-      }
-    }, 1000)
   }
 }
 </script>

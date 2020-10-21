@@ -88,6 +88,7 @@ export default {
             router.push('/')
           })
           .catch(res => {
+            console.log(res)
             this.errorMsg = 'Неверный логин или пароль'
             this.showErrorPopup = true
           })
