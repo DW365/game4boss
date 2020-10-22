@@ -18,16 +18,16 @@
     </v-row>
     <v-row justify="center" class="align-self-start">
       <v-col md="3">
-        <SubscriptionCard title="На 1 месяц" :price=prices[0][0] :offer=prices[0][1] color="blue lighten-2"/>
+        <SubscriptionCard title="На 1 месяц" :price=prices[0][0] :offer=prices[0][1] color="#0e786d"/>
       </v-col>
       <v-col md="3">
-        <SubscriptionCard title="На 3 месяца" :price=prices[1][0] :offer=prices[1][1] color="purple lighten-2"/>
+        <SubscriptionCard title="На 3 месяца" :price=prices[1][0] :offer=prices[1][1] color="#7d1416"/>
       </v-col>
       <v-col md="3">
-        <SubscriptionCard title="На 6 месяев" :price=prices[2][0] :offer=prices[2][1] color="orange lighten-2"/>
+        <SubscriptionCard title="На 6 месяев" :price=prices[2][0] :offer=prices[2][1] color="#b86628"/>
       </v-col>
       <v-col md="3">
-        <SubscriptionCard title="На 12 месяцев" :price=prices[3][0] :offer=prices[3][1] color="pink lighten-2"/>
+        <SubscriptionCard title="На 12 месяцев" :price=prices[3][0] :offer=prices[3][1] color="#17355e"/>
       </v-col>
     </v-row>
   </v-container>

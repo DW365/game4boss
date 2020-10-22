@@ -10,7 +10,6 @@ import Register from '@/views/Register'
 import EmailConfirm from '@/views/EmailConfirm'
 import store from '@/store/index'
 import api from '@/client'
-import Case from '@/views/Case'
 import GameForPlayer from '@/views/GameForPlayer'
 
 Vue.use(VueRouter)
@@ -43,8 +42,11 @@ const routes = [
   {
     path: '/history/case',
     name: 'History Game Case',
-    component: Case,
-    meta: { requiresAuth: false }
+    component: Game,
+    meta: {
+      requiresAuth: false,
+      loadUser: true
+    }
   },
   {
     path: '/history/game',
@@ -88,16 +90,20 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
+  api.init()
+    .then(client => client.getUserInfo(null, null, { withCredentials: true }))
+    .then(res => {
+      store.commit('setUser', res.data)
+      next()
+    })
+    .catch(res => {
+    })
   if (JSON.stringify(store.state.user) === '{}' && to.meta.requiresAuth !== false) {
-    api.init()
-      .then(client => client.getUserInfo(null, null, { withCredentials: true }))
-      .then(res => {
-        store.commit('setUser', res.data)
-        next()
-      })
-      .catch(res => {
-        next('/login')
-      })
+    if (store.state.user) {
+      next()
+    } else {
+      next('/login')
+    }
   } else {
     next()
   }

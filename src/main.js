@@ -21,16 +21,22 @@ new Vue({
       if (c.$store.state.timerActive) {
         console.log('tick')
         const timerComponents = c.$store.state.timerValue.split(':')
-        if (Number(timerComponents[1]) > 0) {
-          timerComponents[1] = zeroPad(Number(timerComponents[1]) - 1, 2)
+        if (Number(timerComponents[2]) > 0) {
+          timerComponents[2] = zeroPad(Number(timerComponents[2]) - 1, 2)
         } else {
-          if (Number(timerComponents[0]) > 0) {
-            timerComponents[1] = zeroPad(59, 2)
-            timerComponents[0] = zeroPad(Number(timerComponents[0]) - 1, 2)
+          if (Number(timerComponents[1]) > 0) {
+            timerComponents[2] = zeroPad(59, 2)
+            timerComponents[1] = zeroPad(Number(timerComponents[1]) - 1, 2)
           } else {
-            c.$store.commit('setTimerActiveValue', false)
-            var audio = new Audio(beep)
-            audio.play()
+            if (Number(timerComponents[0]) > 0) {
+              timerComponents[1] = zeroPad(59, 2)
+              timerComponents[2] = zeroPad(59, 2)
+              timerComponents[0] = zeroPad(Number(timerComponents[0]) - 1, 2)
+            } else {
+              c.$store.commit('setTimerActiveValue', false)
+              var audio = new Audio(beep)
+              audio.play()
+            }
           }
         }
         c.$store.commit('setTimerValue', timerComponents.join(':'))

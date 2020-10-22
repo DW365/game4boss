@@ -10,8 +10,10 @@ export default new Vuex.Store({
     game: {},
     translations: {},
     currentLanguage: 'RU',
-    timerValue: '15:00',
-    timerActive: false
+    timerValue: '01:00:00',
+    timerActive: false,
+    historyPanel: null,
+    historyPage: 1
   },
   mutations: {
     setTimerValue (state, value) {
@@ -23,6 +25,12 @@ export default new Vuex.Store({
     },
     setTimerActiveValue (state, value) {
       state.timerActive = value
+    },
+    setHistoryPanelValue (state, value) {
+      state.historyPanel = value
+    },
+    setHistoryPageValue (state, value) {
+      state.historyPage = value
     },
     setUser (state, user) {
       state.user = user

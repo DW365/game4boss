@@ -35,7 +35,7 @@
               </v-icon>
               {{ mCase.name }}
               <template v-slot:actions>
-                <v-btn fab outlined small color="indigo accent-3" :to="getPath(item,mCase)" target="_blank">
+                <v-btn fab outlined small color="indigo accent-3" :to="getPath(item,mCase)">
                   <v-icon>mdi-open-in-new</v-icon>
                 </v-btn>
                 <v-btn fab outlined small color="blue accent-2" :href="getFileLink(item.id,mCase.id)">
@@ -74,7 +74,7 @@ export default {
         })
     },
     getPath (item, mCase) {
-      return '/history/case?id=' + mCase.id + '&gameId=' + item.id
+      return '/history/case?id=' + mCase.id + '&gameId=' + item.shortLink
     },
     getGamePath (item) {
       return '/history/game?id=' + item.id

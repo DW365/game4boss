@@ -5,13 +5,12 @@
       <router-view></router-view>
     </v-main>
 
-    <v-footer dark height="35px">
+    <v-footer dark height="37px" color="#363636">
       <v-row class="pa-0">
         <v-col
           class="text-center pa-0"
           cols="12"
-        >
-          {{ new Date().getFullYear() }} — <strong>Game4Boss </strong>
+        ><span style="font-size: 10pt">Copyright © {{ new Date().getFullYear() }} ИП Донских Андрей Геннадьевич | ОГРН 304183136500263, ИНН 183300707209 | <a style="color: white" target="_blank" href="https://donskih.ru/soglashenie-ob-obrabotke-personalnyh-dannyh/">Политика конфиденциальности</a></span>
         </v-col>
       </v-row>
     </v-footer>

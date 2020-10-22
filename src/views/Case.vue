@@ -1,7 +1,80 @@
 <template>
-  <v-container fill-height>
+  <v-container fluid>
     <v-row v-if="gameCase !== null && requested" class="align-self-center">
-      <v-col md="10" offset="1">
+      <v-col md="3">
+        <div class="text-center col-title"><h2>Алгоритмы руководителя</h2></div>
+        <v-expansion-panels
+          v-model="panel_value"
+          :disabled="!show1"
+        >
+          <v-expansion-panel
+            class="ma-3"
+          >
+            <v-expansion-panel-header>
+              Постановка задачи
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <span>1. Сбор и анализ информации</span><br>
+              <span>2. Ограничения и риски</span><br>
+              <span>3. Критерии эффективности</span><br>
+              <span>4. Требования к сотруднику</span><br>
+              <span>5. Ожидаемый результат</span><br>
+              <span>6. Формализованное решение</span>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel
+            class="ma-3"
+          >
+            <v-expansion-panel-header>
+              Обеспечение выполнения
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <span>1. Обеспечение ресурсами</span><br>
+              <span>2. Привлечение коллег\партнеров</span><br>
+              <span>3. Распределение заданий</span><br>
+              <span>4. Последовательность действий</span><br>
+              <span>5. Координация участников</span><br>
+              <span>6. Сроки и виды контроля</span>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel
+            class="ma-3"
+          >
+            <v-expansion-panel-header>
+              Формирование мотивации
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <span>1. Мотиваторы</span><br>
+              <span>2. Сильные\слабые стороны</span><br>
+              <span>3. Уровень ответственности</span><br>
+              <span>4. Поощрение</span><br>
+              <span>5. Принуждение</span><br>
+              <span>6. Поддержка</span><br>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+          <v-expansion-panel
+            class="ma-3"
+          >
+            <v-expansion-panel-header>
+              Обратная связь
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <span>1. Полученный результат</span><br>
+              <span>2. Сделано правильно</span><br>
+              <span>3. Требует улучшения</span><br>
+              <span>4. Оценка эффективности</span><br>
+              <span>5. Рекомендации</span><br>
+              <span>6. Управленческое решение</span><br>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </v-col>
+      <v-col md="7">
+        <div class="text-center col-title">
+          <h2>
+            Управленческий кейс "{{ gameCase.name }}"
+          </h2>
+        </div>
         <v-row>
           <v-col md="6">
             <Card title="Задача" :text="taskCardText"
@@ -76,35 +149,5 @@ export default {
 }
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cuprum:wght@700&display=swap');
 
-.v-expansion-panel-header {
-  font-weight: 500;
-  font-size: 15pt !important;
-}
-
-span {
-  font-size: 14pt;
-}
-
-.card-text {
-  font-family: 'Cuprum', sans-serif;
-  font-size: 20pt;
-  color: rgba(255, 255, 255, 0.9) !important;
-  line-height: 1.5rem;
-}
-
-.v-card {
-  height: 100% !important;
-  min-height: 160px;
-}
-
-.card-title {
-  font-size: 12pt !important;
-}
-
-.col-title {
-  height: 42px;
-}
 </style>

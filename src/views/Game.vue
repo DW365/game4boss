@@ -1,6 +1,6 @@
 <template>
-  <v-container :fill-height="game===null" :fluid="game !== null">
-    <v-row v-if="game !== null && requested">
+  <v-container :fill-height="game===null" :fluid="game !== null" class="pb-0">
+    <v-row v-if="game !== null && requested" class="pb-0">
       <v-col md="3">
         <div class="text-center col-title"><h2>Алгоритмы руководителя</h2></div>
         <v-expansion-panels
@@ -69,7 +69,7 @@
           </v-expansion-panel>
         </v-expansion-panels>
       </v-col>
-      <v-col md="7">
+      <v-col md="7" class="pb-0">
         <div class="text-center col-title">
           <h2>
             <v-btn
@@ -98,7 +98,7 @@
               outlined
               small
               @click="nextCase"
-              :disabled="(this.$route.name === 'History Game' && currentCase === game.managementCases.length) || !$store.state.user.subscription"
+              :disabled="(currentCase === game.managementCases.length) && (!$store.state.user.subscription || !$store.state.user ||  $store.state.user.id !== game.ownerId)"
             >
               <v-icon>
                 {{ currentCase !== game.managementCases.length ? 'mdi-chevron-right' : 'mdi-chevron-double-right' }}
@@ -110,7 +110,7 @@
               outlined
               small
               @click="closeGame"
-              :disabled="this.$route.name === 'History Game'"
+              :disabled="this.$route.name !== 'Game'"
             >
               <v-icon>mdi-close</v-icon>
             </v-btn>
@@ -118,31 +118,33 @@
         </div>
         <v-row>
           <v-col md="6">
-            <Card title="Задача" :text="taskCardText"
-                  color="deep-orange lighten-2" v-bind:showText="show1"/>
+            <Card title="Задача" :text="taskCardText" icon="$task"
+                  color="#161342" v-bind:showText="show1"/>
           </v-col>
           <v-col md="6">
-            <Card title="Объект" :text="objectCardText" color="pink lighten-2"
+            <Card title="Объект" :text="objectCardText" color="#0e786d" icon="$object_icon"
                   v-bind:showText="show1"/>
           </v-col>
         </v-row>
         <v-row>
           <v-col md="6">
-            <Card title="Условие" :text="conditionCardText" color="indigo lighten-2"
+            <Card title="Условие" :text="conditionCardText" color="#7d1416" icon="$condition"
                   v-bind:showText="show1"/>
           </v-col>
           <v-col md="6">
-            <Card title="Уровень передачи полномочий" :text="delegationLevelCardText" color="teal lighten-2"
+            <Card title="Уровень передачи полномочий" :text="delegationLevelCardText" color="#b86628"
+                  icon="$delegation_level"
                   v-bind:showText="show1"/>
           </v-col>
         </v-row>
         <v-row>
           <v-col md="12">
-            <Card title="Сотрудник" :text="employeeCardText" color="orange lighten-2" v-bind:showText="show1"/>
+            <Card title="Сотрудник" :text="employeeCardText" color="#17355e" v-bind:showText="show1"
+                  icon="$employee"/>
           </v-col>
         </v-row>
       </v-col>
-      <v-col md="2">
+      <v-col md="2" class="pb-0">
         <div class="text-center col-title">
           <h2>
             <v-text-field
@@ -152,14 +154,14 @@
               v-model="caseNameModel"
               @click:append-outer="saveCaseName"
               ref="caseNameInput"
+              :disabled="!$store.state.user ||  $store.state.user.id !== game.ownerId"
             ></v-text-field>
           </h2>
         </div>
         <div class="pt-13 pb-13">
           <h2 class="text-center pb-2" style="font-weight: 400">Ведущий</h2>
           <h2 class="text-center"><b>{{ this.game.ownerName }}</b></h2></div>
-        <div class="pt-12 pb-16" v-if="show1"
-             :style="{visibility: this.$route.name !== 'History Game' ? 'visible' : 'hidden'}">
+        <div class="pt-12 pb-16" v-if="show1">
           <h2 class=" text-center justify-center" style="font-weight: 400">До конца игры
             <v-btn
               fab
@@ -174,9 +176,10 @@
             <v-col></v-col>
             <v-col>
               <v-text-field
-                v-mask="'##:##'"
+                type="time"
+                step="1"
                 v-model="timerValue"
-                style="width: 3em; font-size: 1.5em; font-weight: 600"
+                style="width: 4.4em; font-size: 1.5em; font-weight: 600"
                 :readonly="timerActive"
               >
               </v-text-field>
@@ -191,6 +194,7 @@
               outlined
               x-small
               @click="updateLink"
+              :disabled="!$store.state.user ||   $store.state.user.id !== game.ownerId"
             >
               <v-icon>mdi-reload</v-icon>
             </v-btn>
@@ -335,7 +339,7 @@ export default {
     }
   },
   beforeCreate () {
-    if (this.$route.name !== 'History Game') {
+    if (this.$route.name !== 'History Game' && this.$route.name !== 'History Game Case') {
       api.init()
         .then(client => client.getCurrentGameInfo())
         .then(res => {
@@ -345,20 +349,25 @@ export default {
         })
     } else {
       api.init()
-        .then(client => client.getGame({ gameId: this.$route.query.id }))
+        .then(client => client.getGame({ gameId: this.$route.query.gameId }))
         .then(res => {
           this.game = res.data
           this.requested = true
-          this.currentCase = this.game.managementCases.length
+          if (this.$route.query.id) {
+            for (let i = 0; i < this.game.managementCases.length; i++) {
+              if (this.$route.query.id === this.game.managementCases[i].id.toString()) {
+                this.currentCase = i + 1
+              }
+            }
+          } else {
+            this.currentCase = this.game.managementCases.length
+          }
         })
     }
   }
 }
 </script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cuprum:wght@700&display=swap');
-
 .v-expansion-panel-header {
   font-weight: 500;
   font-size: 15pt !important;
@@ -366,22 +375,6 @@ export default {
 
 span {
   font-size: 14pt;
-}
-
-.card-text {
-  font-family: 'Cuprum', sans-serif;
-  font-size: 20pt;
-  color: rgba(255, 255, 255, 0.9) !important;
-  line-height: 1.5rem;
-}
-
-.v-card {
-  height: 100% !important;
-  min-height: 160px;
-}
-
-.card-title {
-  font-size: 12pt !important;
 }
 
 .col-title {
