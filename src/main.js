@@ -4,8 +4,9 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import VueMask from 'v-mask'
-
+import VueCookies from 'vue-cookies'
 Vue.use(VueMask)
+Vue.use(VueCookies)
 Vue.config.productionTip = false
 Vue.config.silent = true
 new Vue({

@@ -7,32 +7,32 @@
     <div class="d-flex align-center">
       <img
         alt="Vuetify Logo"
-        class="shrink mr-2"
-        contain
+        class="shrink mr-2 d-none d-sm-none d-md-flex
+"
         src="@/assets/logo.png"
-        width="250px"
-        min-height="50px"
+        width="270px"
       />
     </div>
-    <v-select
-      :items=items
-      solo
-      hide-details
-      value="RU"
-      class="pa-0 ma-0 lang-selector"
-      style="max-width: 100px"
-    ></v-select>
     <v-tabs
+      show-arrows
+      style="position: absolute"
       centered
       v-show=$store.state.user.id
+      class="pr-16 mr-16"
     >
       <v-tab to="/home">Главная</v-tab>
       <v-tab to="/history">История игр</v-tab>
       <v-tab to="/game">Текущая игра</v-tab>
       <v-tab to="/subscription">Подписка</v-tab>
     </v-tabs>
-    <v-img width="260"></v-img>
-
+    <v-select
+      :items="items"
+      solo
+      hide-details
+      v-model="language"
+      class="pa-0 ma-0"
+      style="max-width: 85px; right: 65px; position: absolute"
+    ></v-select>
     <v-menu
       left
       bottom
@@ -43,6 +43,7 @@
           v-bind="attrs"
           v-on="on"
           v-show=$store.state.user.id
+          style="position: absolute; right: 20px"
         >
           <v-icon>mdi-dots-vertical</v-icon>
         </v-btn>
@@ -72,12 +73,13 @@
 <script>
 import router from '@/router'
 import client from '@/client'
+import store from '@/store'
 
 export default {
   name: 'Navigation',
   props: ['show'],
   data: () => ({
-    items: ['RU', 'EN', 'BY', 'KZ'],
+    items: ['RU', 'UA', 'BY', 'KZ', 'EN'],
     logo: 'logo.png'
   }),
   methods: {
@@ -89,12 +91,25 @@ export default {
           router.push('/login')
         })
     }
+  },
+  computed: {
+    language: {
+      get () {
+        return this.$store.state.currentLanguage
+      },
+      set (value) {
+        this.$cookies.set('lang', value, 2147483647)
+        client
+          .then(client => client.getCodex(value))
+          .then(res => {
+            store.commit('setCodex', res.data)
+          })
+        this.$store.commit('setCurrentLanguage', value)
+      }
+    }
   }
 }
 </script>
 
 <style scoped>
-.lang-selector {
-  width: 100px;
-}
 </style>

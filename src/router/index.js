@@ -11,6 +11,7 @@ import EmailConfirm from '@/views/EmailConfirm'
 import store from '@/store/index'
 import client from '@/client'
 import GameForPlayer from '@/views/GameForPlayer'
+import cookies from 'vue-cookies'
 
 Vue.use(VueRouter)
 
@@ -90,6 +91,12 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
+  store.commit('setCurrentLanguage', cookies.get('lang') || 'RU')
+  client
+    .then(client => client.getCodex(cookies.get('lang') || 'RU'))
+    .then(res => {
+      store.commit('setCodex', res.data)
+    })
   client
     .then(client => client.getUserInfo(null, null, { withCredentials: true }))
     .then(res => {

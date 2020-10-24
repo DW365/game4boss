@@ -13,9 +13,16 @@ export default new Vuex.Store({
     timerValue: '01:00:00',
     timerActive: false,
     historyPanel: null,
-    historyPage: 1
+    historyPage: 1,
+    codex: {}
   },
   mutations: {
+    setCodex (state, value) {
+      state.codex = value
+    },
+    setCurrentLanguage (state, value) {
+      state.currentLanguage = value
+    },
     setTimerValue (state, value) {
       const timerComponents = value.split(':')
       const zeroPad = (num, places) => String(num).padStart(places, '0')

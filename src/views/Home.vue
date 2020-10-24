@@ -16,11 +16,26 @@ export default {
       contentString: ''
     }
   },
+  computed: {
+    language () {
+      return this.$store.state.currentLanguage
+    }
+  },
+  methods: {
+    load () {
+      client.then(client => client.getMainPage({ lang: this.$store.state.currentLanguage })
+        .then(res => {
+          this.contentString = res.data
+        }))
+    }
+  },
+  watch: {
+    language (oldVal, newVal) {
+      this.load()
+    }
+  },
   created () {
-    client.then(client => client.getMainPage({ lang: 'RU' })
-      .then(res => {
-        this.contentString = res.data
-      }))
+    this.load()
   }
 }
 </script>
