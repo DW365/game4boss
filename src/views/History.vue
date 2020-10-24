@@ -76,7 +76,7 @@
 <style>
 </style>
 <script>
-import api from '@/client'
+import client from '@/client'
 import router from '@/router'
 import { BACKEND_URL } from '@/constants'
 
@@ -87,7 +87,7 @@ export default {
   }),
   methods: {
     setName (item) {
-      api.init()
+      client
         .then(client => client.setGameName({
           gameId: item.id,
           name: item.name
@@ -100,7 +100,7 @@ export default {
       this.panel = null
     },
     loadPage () {
-      api.init()
+      client
         .then(client => client.getGamesHistory({
           offset: (this.page - 1) * 8,
           limit: 8

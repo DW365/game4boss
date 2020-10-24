@@ -37,7 +37,7 @@
 </style>
 <script>
 import SubscriptionCard from '@/components/SubscriptionCard'
-import api from '@/client'
+import client from '@/client'
 
 export default {
   components: { SubscriptionCard },
@@ -47,7 +47,7 @@ export default {
     }
   },
   created () {
-    api.init()
+    client
       .then(client => client.getPrices({ lang: 'RU' }))
       .then(res => {
         this.prices = res.data

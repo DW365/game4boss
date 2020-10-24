@@ -8,5 +8,5 @@ const api = new OpenAPIClientAxios({
   }
 })
 api.withServer({ url: BACKEND_URL })
-
-export default api
+const client = api.getClient()
+export default client

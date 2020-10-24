@@ -2,7 +2,7 @@
   <v-app>
     <Navigation :show="showNavigation"/>
     <v-main>
-      <router-view></router-view>
+      <router-view :key="$route.fullPath"></router-view>
     </v-main>
 
     <v-footer dark height="37px" color="#363636">

@@ -214,7 +214,7 @@
 </template>
 <script>
 import Card from '@/components/Card'
-import api from '@/client'
+import client from '@/client'
 
 export default {
   components: { Card },
@@ -276,7 +276,7 @@ export default {
       if (this.currentCase < this.game.managementCases.length) {
         this.currentCase++
       } else {
-        api.init()
+        client
           .then(client => client.createNewCase({ gameId: this.game.id }))
           .then(res => {
             this.game.managementCases.push(res.data)
@@ -301,7 +301,7 @@ export default {
       }
     },
     closeGame () {
-      api.init()
+      client
         .then(client => client.closeGame())
         .then(res => {
           this.game = null
@@ -310,7 +310,7 @@ export default {
     startNewGame () {
       this.timerValue = '15:00:00'
       this.timerActive = false
-      api.init()
+      client
         .then(client => client.createNewGame())
         .then(res => {
           this.game = res.data
@@ -318,7 +318,7 @@ export default {
         })
     },
     saveCaseName () {
-      api.init()
+      client
         .then(client => client.setCaseName({
           gameId: this.game.id,
           caseId: this.game.managementCases[this.currentCase - 1].id,
@@ -329,7 +329,7 @@ export default {
         })
     },
     updateLink () {
-      api.init()
+      client
         .then(client => client.setNewShortLink({
           gameId: this.game.id
         }))
@@ -340,7 +340,7 @@ export default {
   },
   beforeCreate () {
     if (this.$route.name !== 'History Game' && this.$route.name !== 'History Game Case') {
-      api.init()
+      client
         .then(client => client.getCurrentGameInfo())
         .then(res => {
           this.game = res.data
@@ -348,7 +348,7 @@ export default {
           this.currentCase = this.game.managementCases.length
         })
     } else {
-      api.init()
+      client
         .then(client => client.getGame({ gameId: this.$route.query.gameId }))
         .then(res => {
           this.game = res.data

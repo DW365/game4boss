@@ -71,7 +71,7 @@
 
 <script>
 import router from '@/router'
-import api from '@/client'
+import client from '@/client'
 
 export default {
   name: 'Navigation',
@@ -82,7 +82,7 @@ export default {
   }),
   methods: {
     logout () {
-      api.init()
+      client
         .then(client => client.logout(null, null, { withCredentials: true }))
         .then(res => {
           this.$store.commit('setUser', {})

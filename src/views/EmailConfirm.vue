@@ -57,7 +57,7 @@
 </style>
 
 <script>
-import api from '@/client'
+import client from '@/client'
 import router from '@/router'
 
 export default {
@@ -78,7 +78,7 @@ export default {
       confirm () {
         this.$refs.form.validate()
         if (this.valid) {
-          api.init()
+          client
             .then(client => client.confirmEmail({
               email: this.email,
               code: this.code

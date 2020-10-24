@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import api from '@/client'
+import client from '@/client'
 
 export default {
   name: 'Home',
@@ -17,11 +17,10 @@ export default {
     }
   },
   created () {
-    api.init()
-      .then(client => client.getMainPage({ lang: 'RU' }))
+    client.then(client => client.getMainPage({ lang: 'RU' })
       .then(res => {
         this.contentString = res.data
-      })
+      }))
   }
 }
 </script>

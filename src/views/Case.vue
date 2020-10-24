@@ -106,7 +106,7 @@
 </template>
 <script>
 import Card from '@/components/Card'
-import api from '@/client'
+import client from '@/client'
 
 export default {
   components: { Card },
@@ -136,7 +136,7 @@ export default {
     }
   },
   beforeCreate () {
-    api.init()
+    client
       .then(client => client.getCase({
         caseId: this.$route.query.id,
         gameId: this.$route.query.gameId

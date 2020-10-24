@@ -48,7 +48,7 @@
 <style>
 </style>
 <script>
-import api from '@/client'
+import client from '@/client'
 
 export default {
   data: () => ({
@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     save () {
-      api.init()
+      client
         .then(client => client.updateUserInfo({}, {
           fullName: this.name,
           phoneNumber: this.phone,

@@ -84,7 +84,7 @@
 </style>
 
 <script>
-import api from '@/client'
+import client from '@/client'
 import router from '@/router'
 
 export default {
@@ -128,7 +128,7 @@ export default {
     confirm () {
       this.$refs.form.validate()
       if (this.valid) {
-        api.init()
+        client
           .then(client => client.register({
             lang: this.$store.state.currentLanguage
           }, {

@@ -9,7 +9,7 @@ import Profile from '@/views/Profile'
 import Register from '@/views/Register'
 import EmailConfirm from '@/views/EmailConfirm'
 import store from '@/store/index'
-import api from '@/client'
+import client from '@/client'
 import GameForPlayer from '@/views/GameForPlayer'
 
 Vue.use(VueRouter)
@@ -90,23 +90,22 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  api.init()
+  client
     .then(client => client.getUserInfo(null, null, { withCredentials: true }))
     .then(res => {
       store.commit('setUser', res.data)
-      next()
     })
     .catch(res => {
     })
-  if (JSON.stringify(store.state.user) === '{}' && to.meta.requiresAuth !== false) {
-    if (store.state.user) {
-      next()
-    } else {
-      next('/login')
-    }
-  } else {
-    next()
-  }
+    .then(
+      res => {
+        if (JSON.stringify(store.state.user) === '{}' && to.meta.requiresAuth !== false) {
+          next('/login')
+        } else {
+          next()
+        }
+      }
+    )
 })
 
 export default router

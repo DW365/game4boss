@@ -53,7 +53,7 @@
 <style>
 </style>
 <script>
-import api from '@/client'
+import client from '@/client'
 import { BACKEND_URL } from '@/constants'
 
 export default {
@@ -65,7 +65,7 @@ export default {
   }),
   methods: {
     loadPage () {
-      api.init()
+      client
         .then(client => client.getGameHistory({
           shortId: this.$route.params.shortId
         }))
