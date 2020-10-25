@@ -20,10 +20,10 @@
       v-show=$store.state.user.id
       class="pr-16 mr-16"
     >
-      <v-tab to="/home">Главная</v-tab>
-      <v-tab to="/history">История игр</v-tab>
-      <v-tab to="/game">Текущая игра</v-tab>
-      <v-tab to="/subscription">Подписка</v-tab>
+      <v-tab to="/home">{{$store.state.codex.MAIN_PAGE}}</v-tab>
+      <v-tab to="/history">{{$store.state.codex.GAME_HISTORY}}</v-tab>
+      <v-tab to="/game">{{$store.state.codex.CURRENT_GAME}}</v-tab>
+      <v-tab to="/subscription">{{$store.state.codex.SUBSCRIPTION}}</v-tab>
     </v-tabs>
     <v-select
       :items="items"
@@ -54,7 +54,7 @@
             <v-icon>mdi-account</v-icon>
           </v-list-item-icon>
           <v-list-item-title>
-            Профиль
+            {{ $store.state.codex.PROFILE }}
           </v-list-item-title>
         </v-list-item>
         <v-list-item @click="logout">
@@ -62,7 +62,7 @@
             <v-icon>mdi-exit-to-app</v-icon>
           </v-list-item-icon>
           <v-list-item-title>
-            Выход
+            {{$store.state.codex.EXIT}}
           </v-list-item-title>
         </v-list-item>
       </v-list>

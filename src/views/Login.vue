@@ -11,14 +11,14 @@
           <v-form ref="form" v-model="valid">
             <v-card-text>
               <v-text-field
-                label="Email"
+                :label="$store.state.codex.EMAIL"
                 placeholder="user@example.com"
                 required
                 v-model="email"
                 :rules="[v => !!v || '']"
               ></v-text-field>
               <v-text-field
-                label="Password"
+                :label="$store.state.codex.PASSWORD"
                 placeholder="******"
                 required
                 type="password"
@@ -28,7 +28,7 @@
             </v-card-text>
             <v-card-actions>
               <v-btn text to="/register">
-                Регистрация
+                {{ $store.state.codex.REGISTRATION }}
               </v-btn>
               <v-spacer></v-spacer>
               <v-btn
@@ -36,7 +36,7 @@
                 text
                 @click="login"
               >
-                Войти
+                {{ $store.state.codex.LOGIN }}
               </v-btn>
             </v-card-actions>
           </v-form>
@@ -89,7 +89,7 @@ export default {
           })
           .catch(res => {
             console.log(res)
-            this.errorMsg = 'Неверный логин или пароль'
+            this.errorMsg = this.$store.state.codex.WRONG_LOG_OR_PASS
             this.showErrorPopup = true
           })
       }

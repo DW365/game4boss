@@ -15,7 +15,7 @@
           <h2 class="price" style="display: block">{{ price }}
             <v-icon color="white" size="30pt">mdi-currency-rub</v-icon>
           </h2>
-          <h2 class="discount-label pt-6" style="display: block; width: 100%">Скидка {{ offer }}%</h2>
+          <h2 class="discount-label pt-6" style="display: block; width: 100%">{{ $store.state.codex.OFFER }} {{ offer }}%</h2>
         </v-row>
       </v-container>
     </v-card-subtitle>
@@ -28,7 +28,7 @@
         :color="color"
         x-large
       >
-        Приобрести
+        {{ $store.state.codex.BUY_BUTTON }}
       </v-btn>
     </v-card-actions>
   </v-card>

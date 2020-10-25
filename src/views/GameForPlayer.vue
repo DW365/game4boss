@@ -80,7 +80,7 @@ export default {
       return '/history/game?id=' + item.id
     },
     getFileLink (gameId, caseId) {
-      return BACKEND_URL + '/game/case/file?caseId=' + caseId + '&gameId=' + gameId + '&lang=RU'
+      return BACKEND_URL + '/game/case/file?caseId=' + caseId + '&gameId=' + gameId + '&lang=' + this.$store.state.currentLanguage
     }
   },
   computed: {

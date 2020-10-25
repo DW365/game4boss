@@ -11,7 +11,7 @@
           <v-form ref="form" v-model="valid">
             <v-card-text>
               <v-text-field
-                label="Email"
+                :label="$store.state.codex.EMAIL"
                 placeholder="user@example.com"
                 required
                 disabled
@@ -19,7 +19,7 @@
                 :rules="[v => !!v || '']"
               ></v-text-field>
               <v-text-field
-                label="Code"
+                :label="$store.state.codex.EMAIL_CODE"
                 placeholder="678412"
                 :rules="[v => !!v || '']"
                 required
@@ -28,7 +28,7 @@
             </v-card-text>
             <v-card-actions>
               <v-btn text to="/register">
-                Назад
+                {{ $store.state.codex.BACK }}
               </v-btn>
               <v-spacer></v-spacer>
               <v-btn
@@ -36,7 +36,7 @@
                 text
                 @click="confirm"
               >
-                Регистрация
+                {{ $store.state.codex.REGISTRATION }}
               </v-btn>
             </v-card-actions>
           </v-form>

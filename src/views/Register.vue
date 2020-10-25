@@ -12,28 +12,28 @@
             <v-card-text>
 
               <v-text-field
-                label="Email"
+                :label="$store.state.codex.EMAIL"
                 placeholder="user@example.com"
                 required
                 v-model="email"
                 :rules="[v => !!v || '']"
               ></v-text-field>
               <v-text-field
-                label="Phone"
+                :label="$store.state.codex.PHONE"
                 placeholder="+78005553535"
                 required
                 v-model="phone"
                 :rules="[v => !!v || '']"
               ></v-text-field>
               <v-text-field
-                label="Name"
+                :label="$store.state.codex.NAME"
                 placeholder="Вася Васечкин"
                 required
                 v-model="name"
                 :rules="[v => !!v || '']"
               ></v-text-field>
               <v-text-field
-                label="Password"
+                :label="$store.state.codex.PASSWORD"
                 placeholder="******"
                 required
                 :rules="[v => !!v,password === rePassword]"
@@ -43,7 +43,7 @@
                 @click:append="show1 = !show1"
               ></v-text-field>
               <v-text-field
-                label="Confirm password"
+                :label="$store.state.codex.CONFIRM_PASSWORD"
                 placeholder="******"
                 required
                 :type="show2 ? 'text' : 'password'"
@@ -55,7 +55,7 @@
             </v-card-text>
             <v-card-actions>
               <v-btn text to="/login">
-                Я уже зарегистрирован
+                {{ $store.state.codex.ALREADY_REGISTERED}}
               </v-btn>
               <v-spacer></v-spacer>
               <v-btn
@@ -63,7 +63,7 @@
                 text
                 @click="confirm"
               >
-                Регистрация
+                {{ $store.state.codex.REGISTRATION }}
               </v-btn>
             </v-card-actions>
           </v-form>
@@ -141,7 +141,7 @@ export default {
             router.push('/email_confirm')
           })
           .catch(res => {
-            this.errorMsg = 'Данный email уже зарегестрирован'
+            this.errorMsg = this.$store.state.codex.$store.state.codex.EMAIL_ALREADY_REGISTERED
             this.showErrorPopup = true
           })
       }

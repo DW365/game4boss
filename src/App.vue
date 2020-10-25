@@ -10,7 +10,7 @@
         <v-col
           class="text-center pa-0"
           cols="12"
-        ><span style="font-size: 10pt">Copyright © {{ new Date().getFullYear() }} ИП Донских Андрей Геннадьевич | ОГРН 304183136500263, ИНН 183300707209 | <a style="color: white" target="_blank" href="https://donskih.ru/soglashenie-ob-obrabotke-personalnyh-dannyh/">Политика конфиденциальности</a></span>
+        ><span style="font-size: 10pt">Copyright © {{ new Date().getFullYear() }} ИП Донских Андрей Геннадьевич | ОГРН 304183136500263, ИНН 183300707209 | <a style="color: white" target="_blank" href="https://donskih.ru/soglashenie-ob-obrabotke-personalnyh-dannyh/">{{ $store.state.codex.PRIVACY_POLICE }}</a></span>
         </v-col>
       </v-row>
     </v-footer>

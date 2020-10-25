@@ -12,22 +12,22 @@
           v-if="$store.state.user.subscription"
         >
           <v-icon dark class="pa-2">mdi-check</v-icon>
-          Ваша подписка активна до <b>{{ $store.state.user.subscription }}</b>
+          {{ $store.state.codex.SUBSCRIPTION_ACTIVE_BEFORE }} <b>{{ $store.state.user.subscription }}</b>
         </v-banner>
       </v-col>
     </v-row>
     <v-row justify="center" class="align-self-start">
       <v-col md="3">
-        <SubscriptionCard title="На 1 месяц" :price=prices[0][0] :offer=prices[0][1] color="#0e786d"/>
+        <SubscriptionCard :title="$store.state.codex.BUY_CARD_1" :price=prices[0][0] :offer=prices[0][1] color="#0e786d"/>
       </v-col>
       <v-col md="3">
-        <SubscriptionCard title="На 3 месяца" :price=prices[1][0] :offer=prices[1][1] color="#7d1416"/>
+        <SubscriptionCard :title="$store.state.codex.BUY_CARD_2" :price=prices[1][0] :offer=prices[1][1] color="#7d1416"/>
       </v-col>
       <v-col md="3">
-        <SubscriptionCard title="На 6 месяев" :price=prices[2][0] :offer=prices[2][1] color="#b86628"/>
+        <SubscriptionCard :title="$store.state.codex.BUY_CARD_3" :price=prices[2][0] :offer=prices[2][1] color="#b86628"/>
       </v-col>
       <v-col md="3">
-        <SubscriptionCard title="На 12 месяцев" :price=prices[3][0] :offer=prices[3][1] color="#17355e"/>
+        <SubscriptionCard :title="$store.state.codex.BUY_CARD_4" :price=prices[3][0] :offer=prices[3][1] color="#17355e"/>
       </v-col>
     </v-row>
   </v-container>

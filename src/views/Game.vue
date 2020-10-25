@@ -2,7 +2,7 @@
   <v-container :fill-height="game===null" :fluid="game !== null" class="pb-0">
     <v-row v-if="game !== null && requested" class="pb-0">
       <v-col md="3">
-        <div class="text-center col-title"><h2>Алгоритмы руководителя</h2></div>
+        <div class="text-center col-title"><h2>{{ $store.state.codex.LEADER_ALGO }}</h2></div>
         <v-expansion-panels
           v-model="panel_value"
           :disabled="!show1"
@@ -11,60 +11,40 @@
             class="ma-3"
           >
             <v-expansion-panel-header>
-              Постановка задачи
+              {{ $store.state.codex.LEADER_ALGO_BLOCK_1_TITLE }}
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <span>1. Сбор и анализ информации</span><br>
-              <span>2. Ограничения и риски</span><br>
-              <span>3. Критерии эффективности</span><br>
-              <span>4. Требования к сотруднику</span><br>
-              <span>5. Ожидаемый результат</span><br>
-              <span>6. Формализованное решение</span>
+              <span style="white-space:pre-line;">{{ $store.state.codex.LEADER_ALGO_BLOCK_1 }}</span>
             </v-expansion-panel-content>
           </v-expansion-panel>
           <v-expansion-panel
             class="ma-3"
           >
             <v-expansion-panel-header>
-              Обеспечение выполнения
+              {{ $store.state.codex.LEADER_ALGO_BLOCK_2_TITLE }}
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <span>1. Обеспечение ресурсами</span><br>
-              <span>2. Привлечение коллег\партнеров</span><br>
-              <span>3. Распределение заданий</span><br>
-              <span>4. Последовательность действий</span><br>
-              <span>5. Координация участников</span><br>
-              <span>6. Сроки и виды контроля</span>
+              <span style="white-space:pre-line;">{{ $store.state.codex.LEADER_ALGO_BLOCK_2 }}</span>
             </v-expansion-panel-content>
           </v-expansion-panel>
           <v-expansion-panel
             class="ma-3"
           >
             <v-expansion-panel-header>
-              Формирование мотивации
+              {{ $store.state.codex.LEADER_ALGO_BLOCK_3_TITLE }}
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <span>1. Мотиваторы</span><br>
-              <span>2. Сильные\слабые стороны</span><br>
-              <span>3. Уровень ответственности</span><br>
-              <span>4. Поощрение</span><br>
-              <span>5. Принуждение</span><br>
-              <span>6. Поддержка</span><br>
+              <span style="white-space:pre-line;">{{ $store.state.codex.LEADER_ALGO_BLOCK_3 }}</span>
             </v-expansion-panel-content>
           </v-expansion-panel>
           <v-expansion-panel
             class="ma-3"
           >
             <v-expansion-panel-header>
-              Обратная связь
+              {{ $store.state.codex.LEADER_ALGO_BLOCK_4_TITLE }}
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              <span>1. Полученный результат</span><br>
-              <span>2. Сделано правильно</span><br>
-              <span>3. Требует улучшения</span><br>
-              <span>4. Оценка эффективности</span><br>
-              <span>5. Рекомендации</span><br>
-              <span>6. Управленческое решение</span><br>
+              <span style="white-space:pre-line;">{{ $store.state.codex.LEADER_ALGO_BLOCK_4 }}</span>
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
@@ -91,7 +71,7 @@
             >
               <v-icon>mdi-chevron-left</v-icon>
             </v-btn>
-            Управленческий кейс {{ currentCase }} / {{ game.managementCases.length }}
+            {{ $store.state.codex.MANAGEMENT_CASE }} {{ currentCase }} / {{ game.managementCases.length }}
             <v-btn
               class="mx-1"
               fab
@@ -118,28 +98,28 @@
         </div>
         <v-row>
           <v-col md="6">
-            <Card title="Задача" :text="taskCardText" icon="$task"
+            <Card :title="$store.state.codex.TASK" :text="taskCardText" icon="$task"
                   color="#161342" v-bind:showText="show1"/>
           </v-col>
           <v-col md="6">
-            <Card title="Объект" :text="objectCardText" color="#0e786d" icon="$object_icon"
+            <Card :title="$store.state.codex.OBJECT" :text="objectCardText" color="#0e786d" icon="$object_icon"
                   v-bind:showText="show1"/>
           </v-col>
         </v-row>
         <v-row>
           <v-col md="6">
-            <Card title="Условие" :text="conditionCardText" color="#7d1416" icon="$condition"
+            <Card :title="$store.state.codex.CONDITION" :text="conditionCardText" color="#7d1416" icon="$condition"
                   v-bind:showText="show1"/>
           </v-col>
           <v-col md="6">
-            <Card title="Уровень передачи полномочий" :text="delegationLevelCardText" color="#b86628"
+            <Card :title="$store.state.codex.DELEGATION_LEVEL" :text="delegationLevelCardText" color="#b86628"
                   icon="$delegation_level"
                   v-bind:showText="show1"/>
           </v-col>
         </v-row>
         <v-row>
           <v-col md="12">
-            <Card title="Сотрудник" :text="employeeCardText" color="#17355e" v-bind:showText="show1"
+            <Card :title="$store.state.codex.EMPLOYEE" :text="employeeCardText" color="#17355e" v-bind:showText="show1"
                   icon="$employee"/>
           </v-col>
         </v-row>
@@ -159,10 +139,10 @@
           </h2>
         </div>
         <div class="pt-13 pb-13">
-          <h2 class="text-center pb-2" style="font-weight: 400">Ведущий</h2>
+          <h2 class="text-center pb-2" style="font-weight: 400">{{ $store.state.codex.GAME_MASTER }}</h2>
           <h2 class="text-center"><b>{{ this.game.ownerName }}</b></h2></div>
         <div class="pt-12 pb-16" v-if="show1">
-          <h2 class=" text-center justify-center" style="font-weight: 400">До конца игры
+          <h2 class=" text-center justify-center" style="font-weight: 400">{{$store.state.codex.BEFORE_GAME_END}}
             <v-btn
               fab
               outlined
@@ -188,7 +168,7 @@
           </v-row>
         </div>
         <div class="pt-3" v-if="show1">
-          <h2 class="text-center pb-2" style="font-weight: 400">Ссылка
+          <h2 class="text-center pb-2" style="font-weight: 400">{{ $store.state.codex.LINK }}
             <v-btn
               fab
               outlined
@@ -205,8 +185,9 @@
     </v-row>
     <v-row v-if="game===null && requested" class="justify-center align-center">
       <v-col cols="8">
-        <v-btn x-large block color="success" @click="startNewGame" :disabled="!$store.state.user.subscription">Начать
-          новую игру
+        <v-btn x-large block color="success" @click="startNewGame" :disabled="!$store.state.user.subscription">{{
+            $store.state.codex.START_NEW_GAME
+          }}
         </v-btn>
       </v-col>
     </v-row>
@@ -256,19 +237,19 @@ export default {
       return window.location.hostname + (location.port ? ':' + location.port : '')
     },
     objectCardText () {
-      return this.game.managementCases[this.currentCase - 1].objectCard.RU
+      return this.game.managementCases[this.currentCase - 1].objectCard[this.$store.state.currentLanguage]
     },
     employeeCardText () {
-      return this.game.managementCases[this.currentCase - 1].employeeCard.RU
+      return this.game.managementCases[this.currentCase - 1].employeeCard[this.$store.state.currentLanguage]
     },
     taskCardText () {
-      return this.game.managementCases[this.currentCase - 1].taskCard.RU
+      return this.game.managementCases[this.currentCase - 1].taskCard[this.$store.state.currentLanguage]
     },
     conditionCardText () {
-      return this.game.managementCases[this.currentCase - 1].conditionCard.RU
+      return this.game.managementCases[this.currentCase - 1].conditionCard[this.$store.state.currentLanguage]
     },
     delegationLevelCardText () {
-      return this.game.managementCases[this.currentCase - 1].delegationLevelCard.RU
+      return this.game.managementCases[this.currentCase - 1].delegationLevelCard[this.$store.state.currentLanguage]
     }
   },
   methods: {

@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-text-field
-          label="Email"
+          :label="$store.state.codex.EMAIL"
           ref="email"
           outlined
           disabled
@@ -12,7 +12,7 @@
       </v-col>
       <v-col cols="12">
         <v-text-field
-          label="Name"
+          :label="$store.state.codex.NAME"
           outlined
           ref="name"
           v-model="name"
@@ -20,7 +20,7 @@
       </v-col>
       <v-col cols="12">
         <v-text-field
-          label="Phone"
+          :label="$store.state.codex.PHONE"
           outlined
           ref="phone"
           v-model="phone"
@@ -28,7 +28,7 @@
       </v-col>
       <v-col cols="12">
         <v-text-field
-          label="Password"
+          :label="$store.state.codex.PASSWORD"
           placeholder="********"
           outlined
           ref="password"
@@ -39,7 +39,7 @@
         ></v-text-field>
       </v-col>
       <v-col cols="8" offset="2" class="justify-center text-center">
-        <v-btn color="success" block x-large @click="save">Сохранить</v-btn>
+        <v-btn color="success" block x-large @click="save">{{ $store.state.codex.SAVE }}</v-btn>
       </v-col>
     </v-row>
   </v-container>
