@@ -12,7 +12,7 @@
               <v-btn fab outlined small color="indigo accent-3" @click="loadPage">
                 <v-icon>mdi-reload</v-icon>
               </v-btn>
-              <span style="color: #606060" class="pl-2">{{ item.shortLink }}</span>
+              <span style="color: #606060" class="pl-2">{{ item.name }}</span>
             </div>
 
             <div class="text-right"><span style="color: rgba(0,0,0,0.5)">{{ item.createdFmt.date }}</span> <b

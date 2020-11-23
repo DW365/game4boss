@@ -20,10 +20,10 @@
       v-show=$store.state.user.id
       class="pr-16 mr-16"
     >
-      <v-tab to="/home">{{$store.state.codex.MAIN_PAGE}}</v-tab>
-      <v-tab to="/history">{{$store.state.codex.GAME_HISTORY}}</v-tab>
-      <v-tab to="/game">{{$store.state.codex.CURRENT_GAME}}</v-tab>
-      <v-tab to="/subscription">{{$store.state.codex.SUBSCRIPTION}}</v-tab>
+      <v-tab to="/home">{{ $store.state.codex.MAIN_PAGE }}</v-tab>
+      <v-tab to="/history">{{ $store.state.codex.GAME_HISTORY }}</v-tab>
+      <v-tab to="/game">{{ $store.state.codex.CURRENT_GAME }}</v-tab>
+      <v-tab to="/subscription">{{ $store.state.codex.SUBSCRIPTION }}</v-tab>
     </v-tabs>
     <v-select
       :items="items"
@@ -62,7 +62,7 @@
             <v-icon>mdi-exit-to-app</v-icon>
           </v-list-item-icon>
           <v-list-item-title>
-            {{$store.state.codex.EXIT}}
+            {{ $store.state.codex.EXIT }}
           </v-list-item-title>
         </v-list-item>
       </v-list>
@@ -79,7 +79,8 @@ export default {
   name: 'Navigation',
   props: ['show'],
   data: () => ({
-    items: ['RU', 'UA', 'BY', 'KZ', 'EN'],
+    items: ['RU', 'UA', 'BY', 'EN', 'CN'],
+    // items: ['RU', 'UA', 'BY', 'KZ', 'EN'],
     logo: 'logo.png'
   }),
   methods: {

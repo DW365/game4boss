@@ -12,7 +12,7 @@
               <v-btn fab outlined small color="indigo accent-3" :to="getGamePath(item)">
                 <v-icon>mdi-open-in-new</v-icon>
               </v-btn>
-              <span style="color: #606060" class="pl-2">{{ item.name }}</span>
+              <span style="color: #606060" class="pl-4">{{ item.name }}</span>
             </div>
 
             <div class="text-right"><span style="color: rgba(0,0,0,0.5)">{{ item.createdFmt.date }}</span> <b
@@ -26,6 +26,11 @@
                 </v-icon>
                 <b class="ml-1">{{ currentHost }}/{{ item.shortLink }}</b>
               </div>
+              <v-btn class="float-right ml-5" fab outlined color="red" small @click="deleteGame(item.id)">
+                <v-icon>
+                  mdi-close
+                </v-icon>
+              </v-btn>
               <v-text-field
                 append-outer-icon="mdi-floppy"
                 type="text"
@@ -33,7 +38,7 @@
                 hide-details
                 single-line
                 outlined
-                class="mt-0 pt-0 float-right"
+                class="mt-0 pt-0 px-16"
                 v-model="item.name"
                 @click:append-outer="setName(item)"
               ></v-text-field>
@@ -86,6 +91,16 @@ export default {
     totalPages: 1
   }),
   methods: {
+    deleteGame (itemId) {
+      client
+        .then(client => client.deleteGame({
+          gameId: itemId
+        }))
+        .then(res => {
+          this.loadPage()
+          this.panel = null
+        })
+    },
     setName (item) {
       client
         .then(client => client.setGameName({
@@ -117,7 +132,7 @@ export default {
       return '/history/game?gameId=' + item.shortLink
     },
     getFileLink (gameId, caseId) {
-      return BACKEND_URL + '/game/case/file?caseId=' + caseId + '&gameId=' + gameId + '&lang=RU'
+      return BACKEND_URL + '/game/case/file?caseId=' + caseId + '&gameId=' + gameId + '&lang=' + this.$store.state.currentLanguage
     }
   },
   computed: {
